@@ -1,0 +1,66 @@
+Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+
+Note: You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+ 
+
+Example 1:
+
+Input: num1 = "2", num2 = "3"
+Output: "6"
+Example 2:
+
+Input: num1 = "123", num2 = "456"
+Output: "56088"
+ 
+
+Constraints:
+
+1 <= num1.length, num2.length <= 200
+num1 and num2 consist of digits only.
+Both num1 and num2 do not contain any leading zero, except the number 0 itself.
+
+-----------------------------
+
+class Solution {
+    func multiply(_ num1: String, _ num2: String) -> String {
+        if num1 == "0" || num2 == "0" {
+            return "0"
+        }
+        
+        let n1 = Array(num1)
+        let n2 = Array(num2)
+        
+        var result = Array(repeating: 0, count: n1.count + n2.count)
+        
+        for i in stride(from: n1.count - 1, through: 0, by: -1) {
+            for j in stride(from: n2.count - 1, through: 0, by: -1) {
+                let digit1 = Int(String(n1[i]))!
+                let digit2 = Int(String(n2[j]))!
+                
+                let product = digit1 * digit2
+                
+                let p1 = i + j
+                let p2 = i + j + 1
+                
+                let sum = product + result[p2]
+                
+                result[p2] = sum % 10
+                result[p1] += sum / 10
+            }
+        }
+        
+        var answer = ""
+        var leadingZero = true
+        
+        for digit in result {
+            if digit == 0 && leadingZero {
+                continue
+            }
+            leadingZero = false
+            answer.append(String(digit))
+        }
+        
+        return answer
+    }
+}
