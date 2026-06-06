@@ -20,8 +20,9 @@ Constraints:
 
 --------------------------
 
-
-var matrix = Array(repeating: Array(repeating: 0, count: n), count: n)
+class Solution {
+    func generateMatrix(_ n: Int) -> [[Int]] {
+        var matrix = Array(repeating: Array(repeating: 0, count: n), count: n)
         
         var top = 0
         var bottom = n - 1
@@ -67,3 +68,5 @@ var matrix = Array(repeating: Array(repeating: 0, count: n), count: n)
         }
         
         return matrix
+    }
+}
